@@ -12,6 +12,12 @@
     <![endif]-->
   </head>
   <body>
+	<p>
+	  <%= flash[:success] unless flash[:success].blank? %>
+	  <%= flash[:error] unless flash[:error].blank? %>
+	  <%= flash[:danger] unless flash[:error].blank? %>
+	  <%= flash[:notice] unless flash[:error].blank? %>
+	</p>
     <header class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
         <nav>
