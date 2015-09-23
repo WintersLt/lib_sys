@@ -23,4 +23,18 @@ module SessionsHelper
   def logged_in_as_admin?
     current_user && current_user.is_admin
   end
+
+  def logged_in_as_member?
+    current_user && current_user.is_lib_member
+  end
+
+  def redirect_to_home
+	flash.now[:danger] = 'Incorrect url'
+	if logged_in?
+	  redirect_to current_user
+	else
+	  redirect to root_path
+	end
+  end	
+
 end

@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
 
   get 'books/new'
- 
-
-
-
   get 'sessions/new'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -18,6 +14,7 @@ Rails.application.routes.draw do
   get    'search'   => 'users#search'
   resources :users
   resources :books
+  get    'books/:id/checkout'   => 'books#checkout'
 
 
   # Example of regular route:

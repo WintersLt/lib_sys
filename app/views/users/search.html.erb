@@ -15,6 +15,6 @@
 Displaying search results for "<%= @query %>"
 <ul>
 <% @books.each do |book| %>
-  <li><%= link_to book.book_name, '/books/#{book.id}' %></li>
+  <li><%= link_to book.book_name, "/books/#{book.id}" %></li>
   </br>
 <% end %>
