@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  get 'books/new'
+ 
+
+
+
   get 'sessions/new'
 
   # The priority is based upon order of creation: first created -> highest priority.

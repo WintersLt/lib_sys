@@ -1,7 +1,7 @@
 
 <h1>Add a book</h1>
-<%= form_for :book do |f| %>
-        <p> Bookname:</br> <%= f.text_field :book_name%> </p>
+<%= form_for(:book, :url => {:controller => 'books', :action => 'create'}) do |f| %>
+<p> Bookname:</br> <%= f.text_field :book_name%> </p>
             <p> ISBN:</br> <%= f.text_field :isbn%> </p>
                 <p> Description:</br> <%= f.text_field :description%></p>
                 <p> Authors:</br> <%= f.text_field :authors%> </p>
