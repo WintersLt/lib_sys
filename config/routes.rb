@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+
   get 'books/new'
-  resources :books
+ 
 
 
 
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
   resources :users
+  resources :books
 
 
   # Example of regular route:

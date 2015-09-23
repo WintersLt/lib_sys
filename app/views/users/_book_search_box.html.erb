@@ -1,0 +1,11 @@
+<%= form_tag("/search", method: "get") do %>
+  <%= label_tag(:q, "Search for books here: ") %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("Search") %>
+<% end %>
+  <br/>
+<%= radio_button_tag(:search_by, "book_name") %>
+<%= label_tag(:search_by_book_name, "Search by book name ") %>
+<%= radio_button_tag(:search_by, "isbn") %>
+<%= label_tag(:search_by_isbn, "Search by ISBN") %>
+
