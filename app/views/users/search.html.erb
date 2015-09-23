@@ -7,10 +7,12 @@
 	<%= render 'users/lib_member_home' %>
 <% end %>
 <p>
-	<h1>Hello <%= @current_user.name %>!! </h1>
-</p>
-<p>
+<!-- only non admin can see book search page as yet -->
 <% if !logged_in_as_admin? %>
 	<%= render 'users/book_search_box' %>
 <% end %>
 </p>
+Displaying search results for "<%= @query %>"
+<% @books.each do |book| %>
+	<ul>
+       <li><%= link_to "Home", root_path %></li>
