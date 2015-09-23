@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   get 'books/new'
+  resources :books
+
+
 
   get 'sessions/new'
 
@@ -13,7 +16,6 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
   resources :users
 
-resources:books
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
