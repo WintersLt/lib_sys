@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'books/new'
 
   get 'sessions/new'
 
@@ -14,7 +13,6 @@ Rails.application.routes.draw do
   resources :users
   resources :books
 
-resources:books
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

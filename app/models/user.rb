@@ -1,7 +1,5 @@
 class User < ActiveRecord::Base
-  #attr_accessor :name, :email, :password, :password_confirmation, :is_admin, :is_lib_member
-# attr_accessor :password
-# attr_accessor :password_confirmation
+  has_many :books
   has_secure_password
   before_save { self.email = email.downcase }
   validates :name, presence: true, length: { maximum: 50 }
