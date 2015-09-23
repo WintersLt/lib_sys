@@ -13,8 +13,9 @@ class UsersController < ApplicationController
     if(!current_user)	
 		#Invalid or no cookie recieved in request, flash error
       	flash.now[:danger] = 'Please login to continue'
-      	render 'Sessions#new'
+      	render 'sessions/new'
+	else
+	  	render 'users'
 	end
-	render 'user'
   end
 end

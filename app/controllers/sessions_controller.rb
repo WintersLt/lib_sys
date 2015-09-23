@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  include SessionsHelper
   def new
   end
 
@@ -7,11 +8,12 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
 	  #Check user privelage here and flash error if improper
 	  #TODO check if it can be defined as enum. Test cases for this
+
 	  if params[:session][:user_type].downcase == "select user type"
-      	flash.now[:danger] = 'You must sselect a user type, kindly retry with correct user type'
+      	flash.now[:error] = 'You must select a user type, kindly retry with correct user type'
       	render 'new'
-	  elsif params[:session][:user_type].downcase == "admin" && !(user.is_admin)
-     	flash.now[:danger] = 'You do not have admin privilages, kindly retry with correct user type'
+	  elsif params[:session][:user_type].downcase == "administrator" && !(user.is_admin)
+     	flash.now[:error] = 'You do not have admin privilages, kindly retry with correct user type'
      	render 'new'
 	  else
         log_in user
