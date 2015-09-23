@@ -26,10 +26,20 @@ class UsersController < ApplicationController
       	render 'sessions/new'
 	elsif params[:search_by] == "book_name"
 		#TODO put checks here that field should not be empty
-		#TODO page results here
-		@books = Book.where("title like ?", "%#{params[:q]}%")
+		#TODO page results here, make it case insensitive
+		@books = Book.where("book_name like ?", "%#{params[:q]}%")
 		@query = params[:q]
 	  	#render 'search'
+	elsif params[:search_by] == "book_name"
+		#TODO put checks here that field should not be empty
+		#TODO page results here
+		@books = Book.where("isbn like ?", "%#{params[:q]}%")
+		@query = params[:q]
+	  	#render 'search'
+	else
+		flash.now[:danger] = "Search failed, retry remember to select a criteria."
+		render 'users'
+
 	end
   end
 
