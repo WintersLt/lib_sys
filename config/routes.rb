@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'books/new'
+
   get 'sessions/new'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -10,6 +12,8 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
   resources :users
+
+resources:books
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

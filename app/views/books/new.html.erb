@@ -1,0 +1,10 @@
+
+<h1>Add a book</h1>
+<%= form_for :book do |f| %>
+        <p> Bookname:</br> <%= f.text_field :book_name%> </p>
+            <p> ISBN:</br> <%= f.text_field :isbn%> </p>
+                <p> Description:</br> <%= f.text_field :description%></p>
+                <p> Authors:</br> <%= f.text_field :authors%> </p>
+                    <p> Status:</br> <%= f.text_field :status%> </p>
+                        <%= f.submit :Submit %>
+                          <% end %>
