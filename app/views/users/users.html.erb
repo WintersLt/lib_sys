@@ -1,11 +1,5 @@
 <% provide(:title, @current_user.name) %>
-<% if logged_in_as_admin? %>
-	<h1>Admin Home</h1>
-	<%= render 'users/admin_home' %>
-<% else %>
-	<h1>Member Home</h1>
-	<%= render 'users/lib_member_home' %>
-<% end %>
+<%= render 'users/users_common' %>
 <p>
 	<h1>Hello <%= @current_user.name %>!! </h1>
 </p>

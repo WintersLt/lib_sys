@@ -1,0 +1,5 @@
+<% provide(:title, "Edit profile") %>
+<%= render 'users/users_common' %>
+<%= render 'users/user_form' %>
+<br/>
+<%= button_to "Change password", "/users/change_pass" , :method => "get" %>

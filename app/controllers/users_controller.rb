@@ -19,6 +19,39 @@ class UsersController < ApplicationController
 	end
   end
 
+  def view_profile
+    if(!current_user)	
+		#Invalid or no cookie recieved in request, flash error
+      	flash.now[:danger] = 'Please login to continue'
+      	render 'sessions/new'
+	else
+	  	render 'view_profile'
+	end
+  end
+
+  def edit
+    if(!current_user)	
+		#Invalid or no cookie recieved in request, flash error
+      	flash.now[:danger] = 'Please login to continue'
+      	render 'sessions/new'
+	else
+        @user = User.find_by(id: session[:user_id])
+	end
+  end
+
+  def update
+    @user = User.find_by(id: session[:user_id])
+    if @user.update_attributes(params.require(:user).permit(:name, :email))
+	 # @current_user = User.find_by(id: session[:user_id])
+      flash.now[:notice] = 'Profile updated successfully'
+	  redirect_to users_view_profile_path
+    else
+      flash.now[:danger] = 'Profile update failed'
+	  redirect_to users_edit_path
+    end
+  end
+
+
   def search
     if(!current_user)	
 		#Invalid or no cookie recieved in request, flash error
@@ -37,9 +70,8 @@ class UsersController < ApplicationController
 		@query = params[:q]
 	  	#render 'search'
 	else
-		flash.now[:danger] = "Search failed, retry remember to select a criteria."
+		flash.now[:danger] = "Search failed, remember to select a criteria."
 		render 'users'
-
 	end
   end
 
@@ -51,6 +83,37 @@ class UsersController < ApplicationController
 	else
 	  redirect_to_home
 	end
+  end
+
+  def change_pass
+    if(!current_user)	
+		#Invalid or no cookie recieved in request, flash error
+      	flash.now[:danger] = 'Please login to continue'
+      	render 'sessions/new'
+	else
+        @user = User.find_by(id: session[:user_id])
+	end
+  end
+
+  def update_pass
+    @user = User.find_by(id: session[:user_id])
+	#@user.password = params[:user][:current_password]
+	#authenticate using existing passowrd 
+    if @user && @user.authenticate(params[:user][:current_password])
+	  @user.password = params[:user][:new_password]
+	  @user.password_confirmation = params[:user][:confirm_new_password]
+	  if @user.save
+      	flash[:danger] = 'Password updated successfully'
+	  	redirect_to users_view_profile_path
+	  else
+      	flash[:danger] = 'Password update failed'
+	  	redirect_to users_change_pass_path
+	  end
+    else
+      flash[:danger] = "Old password <#{params[:user][:current_password]}> is wrong"
+
+	  redirect_to users_change_pass_path
+    end
   end
 
 end

@@ -13,6 +13,11 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
   get    'search'   => 'users#search'
   get    'users/checkout_history'   => 'users#checkout_history'
+  get    'users/view_profile'   => 'users#view_profile'
+  get    'users/edit'   => 'users#edit'
+  post   'users/edit'   => 'users#update'
+  get    'users/change_pass'   => 'users#change_pass'
+  post   'users/change_pass'   => 'users#update_pass'
   resources :users
   resources :books
   get    'books/:id/checkout'   => 'books#checkout'
