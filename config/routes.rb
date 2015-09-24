@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
   get    'search'   => 'users#search'
+  get    'users/checkout_history'   => 'users#checkout_history'
   resources :users
   resources :books
   get    'books/:id/checkout'   => 'books#checkout'

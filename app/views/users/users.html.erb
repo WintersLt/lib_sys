@@ -10,7 +10,13 @@
 	<h1>Hello <%= @current_user.name %>!! </h1>
 </p>
 <p>
-<% if !logged_in_as_admin? %>
+<% if logged_in_as_member? %>
 	<%= render 'users/book_search_box' %>
+<% end %>
+</p>
+
+<p>
+<% if logged_in_as_member? %>
+    <%= link_to "View Checkout history", '/users/checkout_history' %>
 <% end %>
 </p>

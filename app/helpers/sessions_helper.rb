@@ -29,7 +29,7 @@ module SessionsHelper
   end
 
   def redirect_to_home
-	flash.now[:danger] = 'Incorrect url'
+	flash[:danger] = 'Something went wrong, please retry'
 	if logged_in?
 	  redirect_to current_user
 	else
