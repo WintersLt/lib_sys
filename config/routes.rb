@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
 
   get 'books/new'
- 
-
+get 'users/new'
 
 
   get 'sessions/new'
