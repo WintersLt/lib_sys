@@ -1,0 +1,18 @@
+<% provide(:title, @current_user.name) %>
+<% if logged_in_as_admin? %>
+	<h1>Admin Home</h1>
+	<%= render 'users/admin_home' %>
+<% else %>
+	<h1>Member Home</h1>
+	<%= render 'users/lib_member_home' %>
+<% end %>
+<p>
+
+	<%= render 'users/book_search_box' %>
+</p>
+Displaying search results for "<%= @query %>"
+<ul>
+<% @books.each do |book| %>
+  <li><%= link_to book.book_name, "/books/#{book.id}" %> <%= link_to 'Delete' , book_path(book), method: :delete, data: {confirm: 'Are you sure?'} %></li>
+  </br>
+<% end %>
