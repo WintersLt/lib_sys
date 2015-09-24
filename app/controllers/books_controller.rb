@@ -35,7 +35,7 @@ class BooksController < ApplicationController
   def checkout
   	if logged_in_as_member?
 	  #TODO what if book is not found ??
-	  @book = Book.find_by(params[:id])
+	  @book = Book.find_by(id: params[:id])
 	  @book.update(user_id: current_user.id, status: "Checked out")
 	  history = CheckoutHistory.new(user_id: current_user.id, book_id: @book.id, date_of_issue: Time.now)
 	  history.save
