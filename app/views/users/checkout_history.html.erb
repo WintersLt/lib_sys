@@ -1,0 +1,44 @@
+<% provide(:title, "My checkout history") %>
+<% if logged_in_as_admin? %>
+	<h1>Admin Home</h1>
+	<%= render 'users/admin_home' %>
+<% else %>
+	<h1>Member Home</h1>
+	<%= render 'users/lib_member_home' %>
+<% end %>
+<p>
+<!-- only non admin can see book search page as yet -->
+<% if !logged_in_as_admin? %>
+	<%= render 'users/book_search_box' %>
+<% end %>
+</p>
+Displaying checkout history for "<%= @current_user.name %>"
+<% if @histories && @histories.length %>
+  <table>
+	<thead>
+	  <tr>
+		<th>Book name</th>
+		<th>Date of issue</th>
+		<th>Date of Return</th>
+		<th colspan="3"></th>
+	  </tr>
+	</thead>
+
+	<tbody>
+	  <% @histories.each do |history| %>
+		<tr>
+		  <td><%= history["book_name"] %></td>
+		  <td><%= history["date_of_issue"] %></td>
+		  <% if !history["date_of_return"] %>
+			<td>Book is with you</td>
+		  <% else %>
+			<td><%= history["date_of_return"] %></td>
+		  <% end %>
+		</tr>
+	  <% end %>
+	</tbody>
+  </table>
+<% else %>
+  <p>Zero records found in your checkout history</p>
+<% end %>
+

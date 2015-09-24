@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
-  get 'books/new'
+get 'books/new'
 get 'users/new'
 
 
-  get 'sessions/new'
+get 'sessions/new'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -14,8 +14,11 @@ get 'users/new'
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
+  get    'search'   => 'users#search'
+  get    'users/checkout_history'   => 'users#checkout_history'
   resources :users
   resources :books
+  get    'books/:id/checkout'   => 'books#checkout'
 
 
   # Example of regular route:
