@@ -11,12 +11,12 @@ class UsersController < ApplicationController
   include SessionsHelper
   def show
     if(!current_user)	
-		#Invalid or no cookie recieved in request, flash error
-      	flash.now[:danger] = 'Please login to continue'
-      	render 'sessions/new'
-	else
-	  	render 'users'
-	end
+#Invalid or no cookie recieved in request, flash error
+flash.now[:danger] = 'Please login to continue'
+render 'sessions/new'
+else
+render 'users'
+end
   end
 
   def view_profile
@@ -76,13 +76,13 @@ class UsersController < ApplicationController
   end
 
   def checkout_history
-  	if logged_in_as_member?
-	  #TODO what if book is not found ??
-	  @histories = CheckoutHistory.where("checkout_histories.user_id = ?", current_user.id).joins(:book).joins(:user).order(date_of_issue: :desc).select( "checkout_histories.*, books.book_name as book_name, books.description as book_description")
-	  render 'checkout_history'
-	else
-	  redirect_to_home
-	end
+if logged_in_as_member?
+  #TODO what if book is not found ??
+  @histories = CheckoutHistory.where("checkout_histories.user_id = ?", current_user.id).joins(:book).joins(:user).order(date_of_issue: :desc).select( "checkout_histories.*, books.book_name as book_name, books.description as book_description")
+  render 'checkout_history'
+else
+  redirect_to_home
+end
   end
 
   def change_pass
@@ -116,4 +116,28 @@ class UsersController < ApplicationController
     end
   end
 
+  def index
+	@users=User.all
+  end
+
+  def create
+	@user=User.new(user_params)
+	@user.is_lib_member=true
+	@user.is_admin=false
+	if @user.save
+	  flash[:notice]="SignUp successful"
+	  log_in @user
+	  redirect_to @user
+	  #redirect_to @user
+   else
+     flash[:notice]="Signup failed. Please input values in correct form"
+     render "new"
+   end
+  end
+  private
+    def user_params
+     params.require(:user).permit(:name, :email, :password)
+    end
 end
+
+

@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
 	  elsif params[:session][:user_type].downcase == "administrator" && !(user.is_admin)
      	flash.now[:error] = 'You do not have admin privilages, kindly retry with correct user type'
      	render 'new'
-	  else
+	 else
         log_in user
         redirect_to user
 	  end

@@ -1,11 +1,11 @@
 <% provide(:title, @current_user.name) %>
 <%= render 'users/users_common' %>
 <p>
-	<h1>Hello <%= @current_user.name %>!! </h1>
+<h1>Hello <%= @current_user.name %>!! </h1>
 </p>
 <p>
 <% if logged_in_as_member? %>
-	<%= render 'users/book_search_box' %>
+<%= render 'users/book_search_box' %>
 <% end %>
 </p>
 

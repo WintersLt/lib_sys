@@ -11,11 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150923180530) do
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 20150923045105) do
+=======
+ActiveRecord::Schema.define(version: 20150923053209) do
+>>>>>>> 198e61e4c75a4e5f1323fffad79df723815611c8
 
   create_table "books", force: :cascade do |t|
     t.string   "book_name"
-    t.integer  "isbn"
+    t.string   "isbn"
     t.text     "description"
     t.text     "authors"
     t.text     "status"
@@ -25,18 +29,6 @@ ActiveRecord::Schema.define(version: 20150923180530) do
   end
 
   add_index "books", ["user_id"], name: "index_books_on_user_id"
-
-  create_table "checkout_histories", force: :cascade do |t|
-    t.datetime "date_of_issue"
-    t.datetime "date_of_return"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "user_id"
-    t.integer  "book_id"
-  end
-
-  add_index "checkout_histories", ["book_id"], name: "index_checkout_histories_on_book_id"
-  add_index "checkout_histories", ["user_id"], name: "index_checkout_histories_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

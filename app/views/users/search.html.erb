@@ -1,14 +1,12 @@
 <% provide(:title, @current_user.name) %>
 <%= render 'users/users_common' %>
 <p>
-<!-- only non admin can see book search page as yet -->
-<% if !logged_in_as_admin? %>
+
 	<%= render 'users/book_search_box' %>
-<% end %>
 </p>
 Displaying search results for "<%= @query %>"
 <ul>
 <% @books.each do |book| %>
-  <li><%= link_to book.book_name, "/books/#{book.id}" %></li>
+  <li><%= link_to book.book_name, "/books/#{book.id}" %> <%= link_to 'Delete' , book_path(book), method: :delete, data: {confirm: 'Are you sure?'} %></li>
   </br>
 <% end %>
