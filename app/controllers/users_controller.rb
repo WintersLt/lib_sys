@@ -46,7 +46,7 @@ class UsersController < ApplicationController
   def checkout_history
   	if logged_in_as_member?
 	  #TODO what if book is not found ??
-	  @histories = CheckoutHistory.where("checkout_histories.user_id = ?", "3").joins(:book).joins(:user).order(date_of_issue: :desc).select( "checkout_histories.*, books.book_name as book_name, books.description as book_description")
+	  @histories = CheckoutHistory.where("checkout_histories.user_id = ?", current_user.id).joins(:book).joins(:user).order(date_of_issue: :desc).select( "checkout_histories.*, books.book_name as book_name, books.description as book_description")
 	  render 'checkout_history'
 	else
 	  redirect_to_home
