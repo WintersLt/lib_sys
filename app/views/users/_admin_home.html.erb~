@@ -26,6 +26,7 @@
 	<li>Books
 		<%= link_to 'View all books', books_path %>
 		<ul><%= link_to "Add a book", new_book_path %></ul>
+		<ul>Delete a book</ul>
 	</li>
       </ul>
     </nav>
