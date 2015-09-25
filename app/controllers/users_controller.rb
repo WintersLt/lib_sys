@@ -16,7 +16,7 @@ def index
 			flash.now[:danger] = 'Please login to continue'
 			render 'sessions/new'
 		else
-			@users = Users.all	
+			@users = User.all	
 		end
 	
 	end
