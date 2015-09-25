@@ -5,8 +5,10 @@
             <p> ISBN:</br> <%= f.text_field :isbn%> </p>
                 <p> Description:</br> <%= f.text_field :description%></p>
                 <p> Authors:</br> <%= f.text_field :authors%> </p>
-                    <p> Status:</br> <%= f.text_field :status%> </p>
-                        <%= f.submit :Submit %> <%= link_to "Back" , user_path(current_user) %>
+                <p> <%= f.label :status %></br>
+                  <%= f.select :status, ["Select Status","Available","CheckedOut"] %></p>
+
+                </br> <%= f.submit :Submit %> </br></br><%= link_to "My Home" , user_path(current_user) %>
                           <% end %>
 
 

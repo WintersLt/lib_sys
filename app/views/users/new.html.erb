@@ -1,4 +1,4 @@
-
+<% provide(:title, "Sign up") %>
 <h1>Sign up</h1>
 <% if current_user != nil %>
 	Please enter the new Admin's details
@@ -7,9 +7,23 @@
 <% end %>
 
 <%= form_for(:user, :url => {:controller => 'users', :action => 'create'}) do |f| %>
+  <% if @user && @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
 <p> Username:</br> <%= f.text_field :name%> </p>
             <p> Email:</br> <%= f.text_field :email%> </p>
-                <p> Password:</br> <%= f.text_field :password%></p>
+                <p> Password:</br>
+    			<%= f.password_field :password %>
+				</p>
                 <%= f.submit :Submit %>
                           <% end %>
 
