@@ -29,12 +29,12 @@ module SessionsHelper
   end
 
   def redirect_to_home
-	flash[:danger] = 'Something went wrong, please retry'
-	if logged_in?
-	  redirect_to current_user
-	else
-	  redirect to root_path
-	end
+flash[:danger] = 'Something went wrong, please retry'
+if logged_in?
+  redirect_to current_user
+else
+  redirect_to root_path
+end
   end	
 
 end

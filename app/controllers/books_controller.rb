@@ -3,19 +3,32 @@ class BooksController < ApplicationController
   def new
 if !logged_in_as_admin?
  redirect_to_home
-nd
+ end
   end
 
 def edit
   @book=Book.find(params[:id])
-render "edit"
+#render "show"
 end
+
+def update
+      @book =Book.find(params[:id])
+          if @book.update_attributes(book_params)
+render "show"
+            # Handle a successful update
+    else
+       render 'edit'
+ end
+end
+
+
+
 
   def index
     if logged_in_as_admin?
  @books = Book.all
 else
-  redirect_to_home
+ redirect_to_home
 end
   end
 
@@ -23,7 +36,7 @@ end
 if logged_in?
   @book = Book.find(params[:id])
 else
-  redirect_to_home
+ redirect_to_home
 end
   end
 
@@ -33,7 +46,7 @@ if logged_in_as_admin?
   @book.save
   redirect_to @book
 else
-  redirect_to_home
+ redirect_to_home
 end
   end
 
@@ -56,11 +69,11 @@ end
 @book.destroy
 
 redirect_to books_path
-
   end
 
   private
 def book_params
   params.require(:book).permit(:book_name, :isbn, :description, :authors, :status)
 end
-end
+
+  end
