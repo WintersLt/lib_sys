@@ -1,0 +1,15 @@
+<% provide(:title, @current_user.name) %>
+<%= render 'users/users_common' %>
+<h2>Your profile </h2>
+<p>
+  <strong>Name:</strong>
+  <%= @current_user.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @current_user.email %>
+</p>
+
+<%= button_to "Edit profile", users_edit_path, :method => "get" %>
+ 
