@@ -6,6 +6,11 @@ class BooksController < ApplicationController
 	end
   end
 
+def edit
+  @book=Book.find(params[:id])
+render "edit"
+end
+
   def index
     if logged_in_as_admin?
 	  @books = Book.all

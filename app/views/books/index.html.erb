@@ -14,7 +14,9 @@
                               <td><%= book.description %></td>
                               <td><%= book.authors %></td>
                               <td><%= book.status %></td>
-                                        </tr>
+                              <td><%= link_to 'Edit' , edit_book_path(book) %></td>
+                            </tr>
+
                                           <% end %>
                                           </table>
 
