@@ -195,6 +195,17 @@ class UsersController < ApplicationController
 			redirect_to users_path
 			return;
 		end
+
+		if (@user.is_lib_member)
+
+			@user.is_admin=false			
+			result = @user.save
+			flash[:notice] = "Admin previledges have been removed from this user- #{result}"
+
+			redirect_to users_path
+			return;
+		end
+
 		# code to free books that user has borrowed.
 		@user.destroy
 	

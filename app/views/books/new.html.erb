@@ -1,4 +1,4 @@
-
+<% provide(:title, @current_user.name) %>
 <h1>Add a book</h1>
 <%= form_for(:book, :url => {:controller => 'books', :action => 'create'}) do |f| %>
 <p> Bookname:</br> <%= f.text_field :book_name%> </p>

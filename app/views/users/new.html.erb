@@ -1,8 +1,10 @@
-<% provide(:title, "Sign up") %>
+
 <h1>Sign up</h1>
 <% if current_user != nil %>
+<% provide(:title, @current_user.name) %>
 Please enter the new Admin's details
 <% else %>
+<% provide(:title, "Sign up") %>
 Please enter your details.
 <% end %>
 

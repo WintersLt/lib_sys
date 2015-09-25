@@ -29,10 +29,7 @@
 	<%= link_to "Back" , user_path(current_user) %>
 </div>
 
-<% if logged_in_as_admin? %>
-  <%= link_to 'Show all books', books_path %>
-  <%= link_to 'Add Another Book',new_book_path %>
-<% else %>
+<% if logged_in_as_member? %>
   <% if @book.status == "Available" %>
     <%= button_to "Checkout", "/books/#{@book.id}/checkout" , :method => "get" %>
   <% else %>

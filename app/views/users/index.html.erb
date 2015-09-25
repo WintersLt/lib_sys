@@ -1,3 +1,4 @@
+<% provide(:title, @current_user.name) %>
 <table>
   <tr>
         <th>User Name</th>
@@ -5,8 +6,9 @@
               </tr>
 
               <% @users.each do |user| %>
-
-			<% if logged_in_as_admin? %>
+		
+			
+			<% if user.is_admin %>
                       	    <tr>
                               <td><%= user.name %></td>
                               <td><%= user.email %></td>
