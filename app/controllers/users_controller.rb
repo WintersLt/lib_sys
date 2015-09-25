@@ -62,13 +62,21 @@ class UsersController < ApplicationController
 		#TODO page results here, make it case insensitive
 		@books = Book.where("book_name like ?", "%#{params[:q]}%")
 		@query = params[:q]
-	  	#render 'search'
-	elsif params[:search_by] == "book_name"
-		#TODO put checks here that field should not be empty
-		#TODO page results here
+	elsif params[:search_by] == "isbn"
 		@books = Book.where("isbn like ?", "%#{params[:q]}%")
 		@query = params[:q]
-	  	#render 'search'
+	elsif params[:search_by] == "author"
+		@books = Book.where("authors like ?", "%#{params[:q]}%")
+		@query = params[:q]
+	elsif params[:search_by] == "description"
+		@books = Book.where("description like ?", "%#{params[:q]}%")
+		@query = params[:q]
+	elsif params[:search_by] == "availability"
+		@books = Book.where(status: "Available")
+		@query = "All available books"
+	elsif params[:search_by] == "unavailability"
+		@books = Book.where(status: "Checked out")
+		@query = "All unavailable books"
 	else
 		flash.now[:danger] = "Search failed, remember to select a criteria."
 		render 'users'

@@ -2,10 +2,18 @@
   <%= label_tag(:q, "Search for books here: ") %>
   <%= text_field_tag(:q) %>
   <br/>
-  <%= radio_button_tag(:search_by, "book_name") %>
+  <%= radio_button_tag(:search_by, "book_name", checked: true) %>
   <%= label_tag(:search_by_book_name, "Search by book name ") %>
   <%= radio_button_tag(:search_by, "isbn") %>
   <%= label_tag(:search_by_isbn, "Search by ISBN") %>
+  <%= radio_button_tag(:search_by, "author") %>
+  <%= label_tag(:search_by_suthor, "Search by author") %>
+  <%= radio_button_tag(:search_by, "description") %>
+  <%= label_tag(:search_by_description, "Search by description") %>
+  <%= radio_button_tag(:search_by, "availability") %>
+  <%= label_tag(:search_by_availability, "Show all available books") %>
+  <%= radio_button_tag(:search_by, "unavailability") %>
+  <%= label_tag(:search_by_unavailability, "Show all unavailable books") %>
   <br/>
   <%= submit_tag("Search") %>
 <% end %>
