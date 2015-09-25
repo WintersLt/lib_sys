@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   def view_profile
     if(!current_user)	
 		#Invalid or no cookie recieved in request, flash error
-      	flash.now[:danger] = 'Please login to continue'
+      	flash.now[:danger] = "Please login to continue"
       	render 'sessions/new'
 	else
 	  	render 'view_profile'
