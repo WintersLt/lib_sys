@@ -14,14 +14,20 @@
                               <td><%= book.description %></td>
                               <td><%= book.authors %></td>
                               <td><%= book.status %></td>
-                              <td><%= link_to 'Edit' , edit_book_path(book) %></td>
-<td><%= link_to 'Delete' , book_path(book), method: :delete, data: {confirm: 'Are you sure?'} %></td>
-                                        </tr>
+                             <td>
+                              <% if logged_in_as_admin? %>
+
+                         <%= link_to 'Edit' , edit_book_path(book) %></td>
+                       <td> <%= link_to 'Delete' , book_path(book), method: :delete, data: {confirm: 'Are you sure?'} %></td>
+                                        <% end %>
+</tr>
                                           <% end %>
                                           </table>
 
 
-
+<div>
+<%= link_to "My Home" , user_path(current_user) %>
+</div>
 
 
 

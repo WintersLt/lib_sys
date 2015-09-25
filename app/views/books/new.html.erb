@@ -6,5 +6,7 @@
                 <p> Description:</br> <%= f.text_field :description%></p>
                 <p> Authors:</br> <%= f.text_field :authors%> </p>
                     <p> Status:</br> <%= f.text_field :status%> </p>
-                        <%= f.submit :Submit %>
+                        <%= f.submit :Submit %> <%= link_to "Back" , user_path(current_user) %>
                           <% end %>
+
+

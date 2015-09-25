@@ -18,10 +18,9 @@
           </li>
         </ul>
         </li>
-	<li>Managing Admins
-	<ul>View Admins</ul>
-	<ul>Add Admin</ul>
-	<ul>Delete Admin</ul>
+	<li>Managing Admins:
+	<ul><%= link_to "View Admins", users_path %></ul>
+	<ul><%= link_to "Add Admin" , new_user_path %></ul>
 	</li>
 	<li>Books
 		<%= link_to 'View all books', books_path %>
