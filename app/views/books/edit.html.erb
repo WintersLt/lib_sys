@@ -2,21 +2,21 @@
 
 <%= form_for (@book) do |f| %>
   <%= f.label :book_name %>
-  <%= f.text_field:book_name %>
-  <%= f.label :ISBN %>
-  <%= f.text_field :isbn %>
-  
-  <%= f.label :Description %>
-  <%= f.text_field :description%>
+  <%= f.text_field:book_name %></br>
+  </br> <%= f.label :ISBN %>
+   <%= f.text_field :isbn %></br>
+   </br> <%= f.label :Description %>
+   <%= f.text_field :description%></br>
 
 
-  <%= f.label :Authors %>
-  <%= f.text_field :authors %>
+  </br> <%= f.label :Authors %>
+   <%= f.text_field :authors %></br>
 
 
-  <%= f.label :Status %>
-  <%= f.text_field :status%>
+  </br> <%= f.label :Status %>
+   <%= f.select :status, ["Select Status","Available","CheckedOut"] %></br>
 
-  <%= f.submit "Save changes" %>
+
+</br>  <%= f.submit "Save changes" %>
 
 <% end %>
