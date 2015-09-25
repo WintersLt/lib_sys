@@ -6,7 +6,7 @@
                 <p> Description:</br> <%= f.text_field :description%></p>
                 <p> Authors:</br> <%= f.text_field :authors%> </p>
                 <p> <%= f.label :status %></br>
-                  <%= f.select :status, ["Select Status","Available","CheckedOut"] %></p>
+                  <%= f.select :status, ["Select Status","Available","Checked out"] %></p>
 
                 </br> <%= f.submit :Submit %> </br></br><%= link_to "My Home" , user_path(current_user) %>
                           <% end %>
