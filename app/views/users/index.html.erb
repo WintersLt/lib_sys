@@ -2,16 +2,24 @@
   <tr>
         <th>User Name</th>
         <th>email</th>
-        <th>password</th>      </tr>
+              </tr>
 
               <% @users.each do |user| %>
-                      <tr>
+
+			<% if user.is_admin %>
+                      	    <tr>
                               <td><%= user.name %></td>
                               <td><%= user.email %></td>
-                              <td><%=user.password %></td>
+				<td><%= link_to 'Delete' , user_path(user), method: :delete, data: {confirm: 'Are you sure?'} %></td>
                             </tr>
-                                          <% end %>
-                                          </table>
+			<% end %>
+
+                  <% end %>
+      </table>
+
+<div>
+	<%= link_to "Back" , user_path(current_user) %>
+</div>
 
 
 

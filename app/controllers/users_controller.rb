@@ -9,15 +9,31 @@
 
 class UsersController < ApplicationController
   include SessionsHelper
+
+
+	def index
+		if(!current_user)	
+			#Invalid or no cookie recieved in request, flash error
+			flash.now[:danger] = 'Please login to continue'
+			render 'sessions/new'
+		else
+			@users = Users.all	
+		end
+	
+	end
   def show
-    if(!current_user)	
-#Invalid or no cookie recieved in request, flash error
-flash.now[:danger] = 'Please login to continue'
-render 'sessions/new'
-else
-render 'users'
-end
+	    if(!current_user)	
+	#Invalid or no cookie recieved in request, flash error
+	flash.now[:danger] = 'Please login to continue'
+	render 'sessions/new'
+	else
+	render 'users'
+	end
   end
+
+	def new
+	end
+
 
   def search
     if(!current_user)	
@@ -43,6 +59,9 @@ render 'users'
 end
   end
 
+
+
+
   def checkout_history
 if logged_in_as_member?
   #TODO what if book is not found ??
@@ -58,20 +77,46 @@ def index
 end
 
 def create
-  @user=User.new(user_params)
-  @user.is_lib_member=true
-  @user.is_admin=false
-  if @user.save
- flash[:notice]="SignUp successful"
- log_in @user
- redirect_to @user
- #redirect_to @user
- else
- flash[:notice]="Signup failed. Please input values in correct form"
-render "new"
-#redirect_to @new_user
- end
+	  @user=User.new(user_params)
+
+	if current_user 
+		@user.is_lib_member=true
+	  	@user.is_admin=true;
+
+		if @user.save
+		 flash[:notice]="Admin Created successful."		
+		 redirect_to users_path
+		 return;
+		else
+	 	  flash[:notice]="Signup failed. Please enter correct values."
+	 	  render "new"
+		  return;
+	 	end	
+	else
+		@user.is_lib_member=true
+	 	 @user.is_admin=false
+	end
+	  
+	  if @user.save
+	 flash[:notice]="SignUp successful"
+	 log_in @user
+	 redirect_to @user
+	 else
+	 flash[:notice]="Signup failed. Please enter correct values."
+	 render "new"
+	 end
 end
+
+
+	def destroy
+		@user = User.find(params[:id])
+
+		# code to free books that user has borrowed.
+		@user.destroy
+	
+		redirect_to users_path	
+	end
+
   private
     def user_params
      params.require(:user).permit(:name, :email, :password)
