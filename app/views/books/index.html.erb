@@ -15,8 +15,8 @@
                               <td><%= book.authors %></td>
                               <td><%= book.status %></td>
                               <td><%= link_to 'Edit' , edit_book_path(book) %></td>
-                            </tr>
-
+<td><%= link_to 'Delete' , book_path(book), method: :delete, data: {confirm: 'Are you sure?'} %></td>
+                                        </tr>
                                           <% end %>
                                           </table>
 
