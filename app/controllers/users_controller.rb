@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   def index
 	if logged_in_as_admin?	
-		@users = Users.all	
+		@users = User.all	
 	else 
 	  #Invalid or no cookie recieved in request, flash error
 	  redirect_to_home
@@ -183,7 +183,18 @@ class UsersController < ApplicationController
 
 	def destroy
 		@user = User.find(params[:id])
+		
+		if(@user.email == current_user.email)
+			flash[:notice] = "You cannot delete yourself."
+			redirect_to users_path
+			return;
+		end
 
+		if(@user.email == "superadmin@admin.com" || @user.name == "Super Admin")
+			flash[:notice] = "You cannot delete this admin."
+			redirect_to users_path
+			return;
+		end
 		# code to free books that user has borrowed.
 		@user.destroy
 	
