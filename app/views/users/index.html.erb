@@ -6,7 +6,7 @@
 
               <% @users.each do |user| %>
 
-			<% if user.is_admin %>
+			<% if logged_in_as_admin? %>
                       	    <tr>
                               <td><%= user.name %></td>
                               <td><%= user.email %></td>

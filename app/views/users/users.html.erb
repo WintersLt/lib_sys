@@ -2,10 +2,10 @@
 <%= render 'users/users_common' %>
 
 <p>
-<h1>Hello <%= @current_user.name %>!! </h1>
+<h3>Hello <%= @current_user.name %>!! </h3>
 </p>
 <p>
-<% if logged_in_as_member? %>
+<% if logged_in? %>
 <%= render 'users/book_search_box' %>
 <% end %>
 </p>

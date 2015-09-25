@@ -10,35 +10,34 @@
 class UsersController < ApplicationController
   include SessionsHelper
 
-def index
-		if(!current_user)	
-			#Invalid or no cookie recieved in request, flash error
-			flash.now[:danger] = 'Please login to continue'
-			render 'sessions/new'
-		else
-			@users = Users.all	
-		end
-	
+
+  def index
+	if logged_in_as_admin?	
+		@users = Users.all	
+	else 
+	  #Invalid or no cookie recieved in request, flash error
+	  redirect_to_home
 	end
+  end
 
   def show
-    if(!current_user)	
+    if !logged_in?	
 	  #Invalid or no cookie recieved in request, flash error
 	  flash.now[:danger] = 'Please login to continue'
 	  render 'sessions/new'
 	else
 	  render 'users'
-	end
+ 	end
   end
 
-	def new
-	end
+  def new
+  end
 
   def view_profile
-    if(!current_user)	
-		#Invalid or no cookie recieved in request, flash error
-      	flash.now[:danger] = 'Please login to continue'
-      	render 'sessions/new'
+    if !logged_in?	
+	  #Invalid or no cookie recieved in request, flash error
+	  flash.now[:danger] = 'Please login to continue'
+	  render 'sessions/new'
 	else
 	  	render 'view_profile'
 	end
@@ -77,13 +76,21 @@ def index
 		#TODO page results here, make it case insensitive
 		@books = Book.where("book_name like ?", "%#{params[:q]}%")
 		@query = params[:q]
-	  	#render 'search'
-	elsif params[:search_by] == "book_name"
-		#TODO put checks here that field should not be empty
-		#TODO page results here
+	elsif params[:search_by] == "isbn"
 		@books = Book.where("isbn like ?", "%#{params[:q]}%")
 		@query = params[:q]
-	  	#render 'search'
+	elsif params[:search_by] == "author"
+		@books = Book.where("authors like ?", "%#{params[:q]}%")
+		@query = params[:q]
+	elsif params[:search_by] == "description"
+		@books = Book.where("description like ?", "%#{params[:q]}%")
+		@query = params[:q]
+	elsif params[:search_by] == "availability"
+		@books = Book.where(status: "Available")
+		@query = "All available books"
+	elsif params[:search_by] == "unavailability"
+		@books = Book.where(status: "Checked out")
+		@query = "All unavailable books"
 	else
 		flash.now[:danger] = "Search failed, remember to select a criteria."
 		render 'users'
@@ -134,34 +141,44 @@ def index
   
 
   def create
-	 @user=User.new(user_params)
-
-	if current_user 
-		@user.is_lib_member=true
-	  	@user.is_admin=true;
-
-		if @user.save
-		 flash[:notice]="Admin Created successful."		
-		 redirect_to users_path
-		 return;
-		else
-	 	  flash[:notice]="Signup failed. Please enter correct values."
-	 	  render "new"
-		  return;
-	 	end	
+    #Logic is to add role - admin or lib_member, if the user already exists
+	#an admin can only create new admins(with is_lib_member = false)
+	#Sign up form only allow lib_member to be created
+	
+	@user = User.find_by(email: params[:user][:email])
+	user_exists = false
+	if @user && logged_in_as_admin? && !@user.is_admin #User exists in db and and admin is trying to create
+	  @user.is_admin = true
+	elsif @user && !logged_in? && @user.is_admin && !@user.is_lib_member  #User exists and nobody has logged in, it's an lib_member signup for an existing admin
+	  @user.is_lib_member = true
+	elsif !@user && logged_in_as_admin?  #User does not exist, new admin creation
+	  @user = User.new(user_params)
+	  @user.is_admin = true
+	  @user.is_lib_member = false
+	elsif !@user  # new lib_member signup by a completely new user
+	  @user = User.new(user_params)
+	  @user.is_admin = false
+	  @user.is_lib_member = true
 	else
-		@user.is_lib_member=true
-	 	 @user.is_admin=false
+	  user_exists = true
 	end
-	  
-	  if @user.save
-	 flash[:notice]="SignUp successful"
-	 log_in @user
-	 redirect_to @user
-	 else
-	 flash[:notice]="Signup failed. Please enter correct values."
-	 render "new"
-	 end
+
+	if !user_exists && @user.save
+	  flash[:notice]="Sign up successful"
+	  #not logging in automatically here, as we dont know what role user wants in  case he has both roles
+	  if logged_in_as_admin?
+	  	redirect_to current_user
+	  else
+		redirect_to sessions_new_path
+	  end
+	else
+	  if user_exists
+	  	flash.now[:notice]="Signup failed. User with this email already exists"
+	  else
+	  	flash.now[:notice]="Signup failed. Please retry with correct attributes"
+	  end	
+	  render "new"
+	end
   end
 
 	def destroy
@@ -175,9 +192,9 @@ def index
 
   private
 
-  def user_params
-   params.require(:user).permit(:name, :email, :password)
-  end
+	def user_params
+	 params.require(:user).permit(:name, :email, :password)
+	end
 end
 
 
