@@ -10,6 +10,7 @@
 class UsersController < ApplicationController
   include SessionsHelper
 
+
   def index
 	if logged_in_as_admin?	
 		@users = Users.all	

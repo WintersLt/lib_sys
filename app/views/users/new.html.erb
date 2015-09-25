@@ -1,9 +1,9 @@
 <% provide(:title, "Sign up") %>
 <h1>Sign up</h1>
 <% if current_user != nil %>
-	Please enter the new Admin's details
+Please enter the new Admin's details
 <% else %>
-	Please enter your details.
+Please enter your details.
 <% end %>
 
 <%= form_for(:user, :url => {:controller => 'users', :action => 'create'}) do |f| %>
@@ -20,22 +20,21 @@
   <% end %>
 
 <p> Username:</br> <%= f.text_field :name%> </p>
-            <p> Email:</br> <%= f.text_field :email%> </p>
-                <p> Password:</br>
-    			<%= f.password_field :password %>
-				</p>
+
+            <p> Email:</br> <%= f.email_field :email%> </p>
+                <p> Password:</br> <%= f.password_field :password%></p>
                 <%= f.submit :Submit %>
                           <% end %>
 
 
 
 <% if current_user != nil %>
-	<div>
-	<%= link_to "Back" , user_path(current_user) %>
-	</div>
+<div>
+<%= link_to "Back" , user_path(current_user) %>
+</div>
 <% else %>
-	<div>
-	<%= link_to "Back" , root_path %>
+<div>
+<%= link_to "Back" , root_path %>
 </div>
 <% end %>
 
