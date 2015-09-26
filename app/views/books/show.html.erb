@@ -33,7 +33,14 @@
   <% end %>
 <% end %>
 
+<% if logged_in_as_admin? %>
+  <% if @book.status == "Checked out" %>
+    <%= button_to "Return book", "/books/#{@book.id}/return" , :method => "get" %>
+  <% else %>
+    <%= button_to 'Delete' , book_path(@book), method: :delete, data: {confirm: 'Are you sure?'} %>
+  <% end %>
+<% end %>
 
-<div>
-	<%= link_to "Back" , user_path(current_user) %>
-</div>
+<br/>
+
+<%= link_to "Back" , user_path(current_user) %>

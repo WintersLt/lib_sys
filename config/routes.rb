@@ -24,6 +24,7 @@ get 'sessions/new'
   resources :users
   resources :books
   get    'books/:id/checkout'   => 'books#checkout'
+  get    'books/:id/return'   => 'books#return'
 
 
   # Example of regular route:
