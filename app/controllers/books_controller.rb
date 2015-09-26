@@ -62,6 +62,8 @@ class BooksController < ApplicationController
 
   def destroy
     @book = Book.find(params[:id]);
+	#delete checkout history as well, otherwise we end up in foreign key violation in postgres
+	CheckoutHistory.where(book_id: @book.id).destroy_all
     @book.destroy
 	flash[:danger] = "You have successfully delete #{@book.book_name}!!"
     redirect_to current_user
