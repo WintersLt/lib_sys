@@ -1,6 +1,6 @@
 
 <h1>Sign up</h1>
-<% if current_user != nil %>
+<% if logged_in_as_admin? %>
 <% provide(:title, @current_user.name) %>
 Please enter the new Admin's details
 <% else %>
@@ -30,7 +30,7 @@ Please enter your details.
 
 
 
-<% if current_user != nil %>
+<% if logged_in_as_admin? %>
 <div>
 <%= link_to "Back" , user_path(current_user) %>
 </div>

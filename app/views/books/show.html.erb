@@ -25,10 +25,6 @@
 </p>
 
 
-<div>
-	<%= link_to "Back" , user_path(current_user) %>
-</div>
-
 <% if logged_in_as_member? %>
   <% if @book.status == "Available" %>
     <%= button_to "Checkout", "/books/#{@book.id}/checkout" , :method => "get" %>
@@ -37,3 +33,7 @@
   <% end %>
 <% end %>
 
+
+<div>
+	<%= link_to "Back" , user_path(current_user) %>
+</div>

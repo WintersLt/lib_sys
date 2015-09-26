@@ -200,7 +200,7 @@ class UsersController < ApplicationController
 
 			@user.is_admin=false			
 			result = @user.save
-			flash[:notice] = "Admin previledges have been removed from this user- #{result}"
+			flash[:notice] = "Admin previliges have been removed for this user- #{result}"
 
 			redirect_to users_path
 			return;
