@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  data_of_issue: 2015-09-23 13:48:41
+  date_of_issue: 2015-09-23 13:48:41
   date_of_return: 2015-09-23 13:48:41
 
 two:
-  data_of_issue: 2015-09-23 13:48:41
+  date_of_issue: 2015-09-23 13:48:41
   date_of_return: 2015-09-23 13:48:41
