@@ -6,7 +6,7 @@
 Displaying search results for "<%= @query %>"
 <ul>
 <% @books.each do |book| %>
-  <li><%= link_to book.book_name, "/books/#{book.id}" %> 
+  <li><%= link_to book.book_name, "/books/#{book.id}" %> </li>
    <!--	<% if logged_in_as_admin? %>
 		<%= link_to 'Delete' , book_path(book), method: :delete, data: {confirm: 'Are you sure?'} %></li>
 	<% end %> -->

@@ -1,0 +1,12 @@
+<%= form_tag("/users/search", method: "get") do %>
+  <%= label_tag(:q, "Search for members here: ") %>
+  <%= text_field_tag(:q) %>
+  <br/>
+  <%= radio_button_tag(:search_by, "email", checked: true) %>
+  <%= label_tag(:search_by_email, "Search by email") %>
+  <%= radio_button_tag(:search_by, "name") %>
+  <%= label_tag(:search_by_name, "Search by name") %>
+  <br/>
+  <%= submit_tag("Search") %>
+<% end %>
+

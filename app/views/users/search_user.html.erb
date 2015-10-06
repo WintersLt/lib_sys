@@ -1,0 +1,12 @@
+<% provide(:title, "User search") %>
+<%= render 'users/users_common' %>
+<p>
+	<%= render 'users/user_search_box' %>
+</p>
+Displaying search results for "<%= @query %>"
+<ul>
+<% @users.each do |user| %>
+  <li><%= link_to user.email, "/users/checkout_history/#{user.id}" %> </li>
+  </br>
+<% end %>
+</ul>

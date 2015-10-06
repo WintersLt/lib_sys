@@ -1,13 +1,19 @@
-<% provide(:title, "My checkout history") %>
+<% provide(:title, "Checkout history") %>
 <%= render 'users/users_common' %>
 <p>
 <!-- only non admin can see book search page as yet -->
-<% if !logged_in_as_admin? %>
+
+<% if logged_in_as_member? %>
 	<%= render 'users/book_search_box' %>
+Displaying checkout history for "<%= @current_user.name %>"
+<% end %>
+
+<% if logged_in_as_admin? %>
+Displaying checkout history
 <% end %>
 </p>
-Displaying checkout history for "<%= @current_user.name %>"
-<% if @histories && @histories.length %>
+
+<% if @histories && @histories.length != 0 %>
   <table>
 	<thead>
 	  <tr>
@@ -24,7 +30,7 @@ Displaying checkout history for "<%= @current_user.name %>"
 		  <td><%= history["book_name"] %></td>
 		  <td><%= history["date_of_issue"] %></td>
 		  <% if !history["date_of_return"] %>
-			<td>Book is with you</td>
+			<td>Book checked out</td>
 		  <% else %>
 			<td><%= history["date_of_return"] %></td>
 		  <% end %>
@@ -33,6 +39,6 @@ Displaying checkout history for "<%= @current_user.name %>"
 	</tbody>
   </table>
 <% else %>
-  <p>Zero records found in your checkout history</p>
+  <p>Zero records found in checkout history</p>
 <% end %>
 

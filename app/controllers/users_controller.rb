@@ -98,9 +98,14 @@ class UsersController < ApplicationController
   end
 
   def checkout_history
-	if logged_in_as_member?
+  	if logged_in_as_member?
+	  user_id = current_user.id
+	elsif logged_in_as_admin?
+	  user_id = params[:id]
+	end
+	if logged_in?
 	  #TODO what if book is not found ??
-	  @histories = CheckoutHistory.where("checkout_histories.user_id = ?", current_user.id).joins(:book).joins(:user).order(date_of_issue: :desc).select( "checkout_histories.*, books.book_name as book_name, books.description as book_description")
+	  @histories = CheckoutHistory.where("checkout_histories.user_id = ?", user_id).joins(:book).joins(:user).order(date_of_issue: :desc).select( "checkout_histories.*, books.book_name as book_name, books.description as book_description")
 	  render 'checkout_history'
 	else
 	  redirect_to_home
@@ -219,6 +224,35 @@ class UsersController < ApplicationController
 	  redirect_to_home
 	end
   end
+
+  #admin searches for user or book 
+  def search_checkout_history
+	if !logged_in_as_admin?	
+	  #Invalid or no cookie recieved in request, flash error
+	  redirect_to_home
+	end
+  end
+
+  def search_user
+	if !logged_in_as_admin?	
+	  #Invalid or no cookie recieved in request, flash error
+	  redirect_to_home
+	end
+	if params[:search_by] == "email"
+		#TODO put checks here that field should not be empty
+		#TODO page results here, make it case insensitive
+		@users = User.where("email like ? and is_lib_member == 't'", "%#{params[:q]}%")
+		@query = params[:q]
+	elsif params[:search_by] == "name"
+		@users = User.where("name like ? and is_lib_member == 't'", "%#{params[:q]}%")
+		@query = params[:q]
+	else
+		flash.now[:danger] = "Search failed, remember to select a criteria."
+		render 'users'
+	end
+
+  end
+
 
 
   private
