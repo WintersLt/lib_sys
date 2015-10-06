@@ -36,8 +36,16 @@
 <% if logged_in_as_admin? %>
   <% if @book.status == "Checked out" %>
     <%= button_to "Return book", "/books/#{@book.id}/return" , :method => "get" %>
+    <br/>Book is checked out<br/>
   <% else %>
     <%= button_to 'Delete' , book_path(@book), method: :delete, data: {confirm: 'Are you sure?'} %>
+	<br/>
+	<%= form_tag "/books/#{@book.id}/checkout", method: :get  do %>
+  	  <%= email_field_tag "email", "Enter member's email here" %>
+	  <%= hidden_field_tag :book_id, @book.id %>
+      <%= submit_tag "Checkout" %>
+    <% end %>
+
   <% end %>
 <% end %>
 

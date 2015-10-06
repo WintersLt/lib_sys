@@ -1,0 +1,12 @@
+<% provide(:title, @current_user.name) %>
+<%= render 'users/users_common' %>
+
+<p>
+Please search the book to checkout below
+</p>
+<p>
+<% if logged_in? %>
+<%= render 'users/book_search_box' %>
+<% end %>
+</p>
+

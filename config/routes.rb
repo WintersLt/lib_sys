@@ -21,6 +21,7 @@ get 'sessions/new'
   post   'users/edit'   => 'users#update'
   get    'users/change_pass'   => 'users#change_pass'
   post   'users/change_pass'   => 'users#update_pass'
+  get	 'users/checkout'   => 'users#checkout'
   resources :users
   resources :books
   get    'books/:id/checkout'   => 'books#checkout'

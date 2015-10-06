@@ -212,6 +212,15 @@ class UsersController < ApplicationController
 		redirect_to users_path	
 	end
 
+  #admin checksout books on behalf of user
+  def checkout
+	if !logged_in_as_admin?	
+	  #Invalid or no cookie recieved in request, flash error
+	  redirect_to_home
+	end
+  end
+
+
   private
 
 	def user_params

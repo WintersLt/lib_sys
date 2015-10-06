@@ -47,11 +47,26 @@ class BooksController < ApplicationController
   end
 
   def checkout
-    if logged_in_as_member?
+	@book = Book.find_by(id: params[:id])
+	#TODO check if book is nil
+  	if logged_in_as_admin?
+	  @user = User.find_by(email: params[:email])
+	  if !@user	|| !@user.is_lib_member
+	    flash[:danger] = "No such library member exists, please retry..."
+	    redirect_to @book
+		return
+	  end
+	end
+
+    if logged_in?
 	  #TODO what if book is not found ??
-	  @book = Book.find_by(id: params[:id])
-	  @book.update(user_id: current_user.id, status: "Checked out")
-	  history = CheckoutHistory.new(user_id: current_user.id, book_id: @book.id, date_of_issue: Time.now)
+	  if logged_in_as_member?
+	    @book.update(user_id: current_user.id, status: "Checked out")
+	  	history = CheckoutHistory.new(user_id: current_user.id, book_id: @book.id, date_of_issue: Time.now)
+	  elsif logged_in_as_admin?
+	    @book.update(user_id: @user.id, status: "Checked out")
+	    history = CheckoutHistory.new(user_id: @user.id, book_id: @book.id, date_of_issue: Time.now)
+	  end
       history.save
 	  flash[:danger] = "You have successfully checked out #{@book.book_name}!!"
 	  redirect_to current_user
