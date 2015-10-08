@@ -16,6 +16,11 @@ To Return a book admin does the following :
 * Click the button to return the book (This button only appears if the book is checked out)
 * Checkout history and book records are automatically updated
 
+Admin deletes a book that is checked out
+------------------
+Admin can only delete a book once it is returned. So he'll ideally return the book(using return option on the home page) and then try to delete the book. Delete button only appears when the book is available.
+
+
 ======================================
 
 Library member
