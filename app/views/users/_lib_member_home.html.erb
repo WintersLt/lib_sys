@@ -10,7 +10,9 @@
           <li><%= link_to "My home", current_user %></li>
           <li><%= link_to "View profile", '/users/view_profile' %></li>
           <li><%= link_to "Edit profile", '/users/edit' %></li>
+	  <li><%= link_to "Return book", '/users/return' %></li>
           <li><%= link_to "Checkout history", users_checkout_history_path %></li>
+	  <li><%= link_to "Suggest a Book", new_suggestion_path %></li>
         <!--  <li class="divider"></li> -->
           <li>
             <%= link_to "Log out", logout_path, method: "delete" %>

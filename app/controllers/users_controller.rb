@@ -253,8 +253,10 @@ class UsersController < ApplicationController
 
   end
 
-
-
+ def return
+	@books = Book.where("user_id = ? AND status= ?", session[:user_id],"Checked out")
+	
+ end
   private
 
 	def user_params
