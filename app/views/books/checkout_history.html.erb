@@ -1,0 +1,36 @@
+<% provide(:title, "Checkout history") %>
+<%= render 'users/users_common' %>
+<p>
+<!-- only non admin can see book search page as yet -->
+Displaying users checkout history
+</p>
+
+<% if @histories && @histories.length != 0 %>
+  <table>
+	<thead>
+	  <tr>
+		<th>User email</th>
+		<th>Date of issue</th>
+		<th>Date of Return</th>
+		<th colspan="3"></th>
+	  </tr>
+	</thead>
+
+	<tbody>
+	  <% @histories.each do |history| %>
+		<tr>
+		  <td><%= history["user"] %></td>
+		  <td><%= history["date_of_issue"] %></td>
+		  <% if !history["date_of_return"] %>
+			<td>Book checked out</td>
+		  <% else %>
+			<td><%= history["date_of_return"] %></td>
+		  <% end %>
+		</tr>
+	  <% end %>
+	</tbody>
+  </table>
+<% else %>
+  <p>Zero records found in checkout history</p>
+<% end %>
+

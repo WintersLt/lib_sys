@@ -32,6 +32,7 @@ get 'sessions/new'
   get    'books/:id/checkout'   => 'books#checkout'
   get    'books/:id/return'   => 'books#return'
   get    'books/:id/setalert'   => 'books#set_alert'
+  get    'books/:id/checkout_history'   => 'books#checkout_history'
 
   resources :suggestions
 

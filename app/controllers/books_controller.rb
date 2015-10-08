@@ -147,6 +147,21 @@ class BooksController < ApplicationController
 	end
   end
 
+  def checkout_history
+	if !logged_in_as_admin?
+	  redirect_to_home
+	  return
+	end
+	if logged_in?
+	  #TODO what if book is not found ??
+	  @histories = CheckoutHistory.where("checkout_histories.book_id = ?", params[:id]).joins(:book).joins(:user).order(date_of_issue: :desc).select( "checkout_histories.*, users.email as user, books.description as book_description")
+	  render 'checkout_history'
+	else
+	  redirect_to_home
+	end
+  end
+
+
   private
 
 	def book_params

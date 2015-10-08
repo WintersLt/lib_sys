@@ -36,6 +36,7 @@
 <% end %>
 
 <% if logged_in_as_admin? %>
+  <%= button_to "View checkout history", "/books/#{@book.id}/checkout_history" , :method => "get" %>
   <% if @book.status == "Checked out" %>
     <%= button_to "Return book", "/books/#{@book.id}/return" , :method => "get" %>
     <br/>Book is checked out<br/>
