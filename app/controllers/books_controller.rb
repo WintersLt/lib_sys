@@ -105,16 +105,18 @@ class BooksController < ApplicationController
 	  
 	  @history.date_of_return = Time.now
 	  @book.status = "Available"
+	  @book.user_id = nil
 	  @history.save
 	  @book.save
 
 	  #set email alert here and delete everything from email_alert table for this book
-	  emails = EmailAlert.where("book_id = ?", params[:id]) 
-	  #TODO:This can take time, can be done after redirecting
-	  emails.each do |email|
-	    AlertMailer.alert_email(email).deliver_now
-	  end
-	  EmailAlert.where(book_id: params[:id]).destroy_all
+	  #Commenting out email code for production, because heroku gives error otherwise
+####  emails = EmailAlert.where("book_id = ?", params[:id]) 
+####  #TODO:This can take time, can be done after redirecting
+####  emails.each do |email|
+####    AlertMailer.alert_email(email).deliver_now
+####  end
+####  EmailAlert.where(book_id: params[:id]).destroy_all
 
 	  #flash[:notice] = "You have successfully returned #{@book.book_name}!!"
 	  flash[:notice] = "You have successfully returned #{@book.book_name}!!"

@@ -1,0 +1,11 @@
+<% provide(:title, @current_user.name) %>
+<%= render 'users/users_common' %>
+
+<p>
+Please search the user you want to delete:
+</p>
+<% if logged_in? %>
+<%= render 'users/user_search_box' %>
+<% end %>
+</p>
+

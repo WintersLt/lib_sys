@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   def index
 	if logged_in_as_admin?	
-		@users = User.all	
+		@users = User.where("is_admin = 't'")
 	else 
 	  #Invalid or no cookie recieved in request, flash error
 	  redirect_to_home
@@ -186,7 +186,13 @@ class UsersController < ApplicationController
 	end
   end
 
+	#This deletes admin user
+	#No way to know here if the delete is for admin user or lib member
+	#So making a separate method for deleting lib member
 	def destroy
+	  if !logged_in_as_admin?
+	  	redirect_to_home 
+	   end	
 		@user = User.find(params[:id])
 		
 		if(@user.email == current_user.email)
@@ -253,10 +259,60 @@ class UsersController < ApplicationController
 
   end
 
- def return
-	@books = Book.where("user_id = ? AND status= ?", session[:user_id],"Checked out")
+  def return
+  	 if logged_in_as_member?
+	   redirect_to_home
+	 end
+     @books = Book.where("user_id = ? AND status= ?", session[:user_id],"Checked out")
+  end
+
+  #Displays the search user page for deleting
+  def delete_member
+     if !logged_in_as_admin?	
+   	   redirect_to_home
+     end
+  end
+
+  def destroy_member
+    if !logged_in_as_admin?
+    	redirect_to_home 
+     end	
+  	@user = User.find(params[:id])
+  	
+  	if(@user.email == "superadmin@admin.com" || @user.name == "Super Admin")
+  		flash[:notice] = "You cannot delete this admin."
+  		redirect_to current_user
+  		return;
+  	end
+
+	# check for books pending on this user
+	history = CheckoutHistory.where("checkout_histories.user_id = ? and checkout_histories.date_of_return is null", @user.id).first
+	if history
+  		flash[:notice] = "You cannot delete this member, please ask the member to return all books!!"
+  		redirect_to current_user
+		return
+	end
+
+  	# Delete user's history
+	EmailAlert.where("email = ?", @user.email).destroy_all 
+	CheckoutHistory.where(user_id: @user.id).destroy_all
 	
- end
+  	if (@user.is_admin)
+  		@user.is_lib_member = false			
+  		result = @user.save
+  		flash[:notice] = "Member previliges have been removed for this user"
+
+  		redirect_to current_user
+  		return;
+  	end
+
+ 	flash[:notice] = "Member account deleted from library"
+  	@user.destroy
+  
+  	redirect_to current_user
+  end
+
+
   private
 
 	def user_params

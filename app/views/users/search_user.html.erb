@@ -5,8 +5,27 @@
 </p>
 Displaying search results for "<%= @query %>"
 <ul>
+  <table>
+	<thead>
+	  <tr>
+		<th>Member name</th>
+		<th>email</th>
+		<th>Checkout history</th>
+		<th>Delete member</th>
+		<th colspan="3"></th>
+	  </tr>
+	</thead>
+
+
+	<tbody>
 <% @users.each do |user| %>
-  <li><%= link_to user.email, "/users/checkout_history/#{user.id}" %> </li>
-  </br>
+		<tr>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= button_to "Checkout history", "/users/checkout_history/#{user.id}", method: :get %></td>
+	  <td><%= button_to 'Delete member' , "/users/delete_member/#{user.id}", method: :delete, data: {confirm: 'Are you sure?'} %></td>
+		</tr>
 <% end %>
+	</tbody>
+  </table>
 </ul>

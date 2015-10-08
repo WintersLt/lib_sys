@@ -13,9 +13,10 @@
           <li><%= link_to "Log out", logout_path, method: "delete" %></li>
         </ul>
         </li>
-	<li>Managing Admins:
+	<li>Managing users:
 	  <ul><%= link_to "View Admins", users_path %></ul>
 	  <ul><%= link_to "Add Admin" , new_user_path %></ul>
+	  <ul><%= link_to "Delete library member" , users_delete_member_path %></ul>
 	</li>
 	<li>Books
 		<ul><%= link_to 'View all books', books_path %></ul>
