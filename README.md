@@ -6,9 +6,15 @@ superadmin@admin.com / foobar12
 An admin can add and view admin from his home page. 
 Delete admin option is availble on the "view admin" page.
 
-Admin can view and add a book and delete and edit the book fromthe "View all book" page.
+Admin can view and add a book and delete and edit the book from the "View all book" page.
 
 Admin can search for books to return or delete it.
+
+To Return a book admin does the following :
+* Search the book from his home page
+* view the book by clicking on hyperlink
+* Click the button to return the book (This button only appears if the book is checked out)
+* Checkout history and book records are automatically updated
 
 ======================================
 
@@ -34,5 +40,11 @@ If a user is both admin and member, then upon deletion, only his admin previlige
 Book delete :
 ------------
 A book cannot be deleted if its checked out.
- 
 
+Extra credit functionality
+--------------------------
+
+* Suggest a book : Member suggests a book and admin can approve or delete the suggestion.
+
+* Email : Member can register for alert by clicking on the "Set alert" button on the book's page
+		  Email only works in development environment. Not configured for production env.
