@@ -241,10 +241,10 @@ class UsersController < ApplicationController
 	if params[:search_by] == "email"
 		#TODO put checks here that field should not be empty
 		#TODO page results here, make it case insensitive
-		@users = User.where("email like ? and is_lib_member == 't'", "%#{params[:q]}%")
+		@users = User.where("email like ? and is_lib_member = 't'", "%#{params[:q]}%")
 		@query = params[:q]
 	elsif params[:search_by] == "name"
-		@users = User.where("name like ? and is_lib_member == 't'", "%#{params[:q]}%")
+		@users = User.where("name like ? and is_lib_member = 't'", "%#{params[:q]}%") # changing ==to = for postgres
 		@query = params[:q]
 	else
 		flash.now[:danger] = "Search failed, remember to select a criteria."
