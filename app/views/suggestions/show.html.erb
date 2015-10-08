@@ -1,0 +1,25 @@
+<% provide(:title, @suggestion.book_name) %>
+<p>
+  <strong>Book Name: </strong>
+  <%= @suggestion.book_name %>
+</p>
+
+<p>
+  <strong>ISBN: </strong>
+  <%= @suggestion.isbn %>
+</p>
+
+<p>
+  <strong>Description: </strong>
+  <%= @suggestion.description %>
+</p>
+
+<p>
+  <strong>Authors: </strong>
+  <%= @suggestion.authors %>
+</p>
+
+
+<br/>
+
+<%= link_to "Back" , user_path(current_user) %>

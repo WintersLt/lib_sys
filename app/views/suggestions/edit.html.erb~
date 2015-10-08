@@ -1,0 +1,22 @@
+<h1> Edit Book Suggestion </h1>
+
+<%= form_for (@suggestion) do |f| %>
+  <%= f.label :book_name %>
+  <%= f.text_field:book_name %></br>
+  </br> <%= f.label :ISBN %>
+   <%= f.text_field :isbn %></br>
+   </br> <%= f.label :Description %>
+   <%= f.text_field :description%></br>
+
+
+  </br> <%= f.label :Authors %>
+   <%= f.text_field :authors %></br>
+
+
+  </br> <%= f.label :Status %>
+   <%= f.select :status, ["Available","Checked out"] %></br>
+
+
+</br>  <%= f.submit "Save changes" %>
+
+<% end %>
