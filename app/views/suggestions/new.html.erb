@@ -1,0 +1,11 @@
+
+<h1>Suggest a book</h1>
+<%= form_for(:suggestion, :url => {:controller => 'suggestions', :action => 'create'}) do |f| %>
+<p> Bookname:</br> <%= f.text_field :book_name%> </p>
+            <p> ISBN:</br> <%= f.text_field :isbn%> </p>
+                <p> Description:</br> <%= f.text_field :description%></p>
+                <p> Authors:</br> <%= f.text_field :authors%> </p>
+                </br> <%= f.submit :Submit %> </br></br><%= link_to "My Home" , user_path(current_user) %>
+                          <% end %>
+
+

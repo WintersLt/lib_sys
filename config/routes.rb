@@ -20,17 +20,20 @@ get 'sessions/new'
   get    'users/checkout_history'   => 'users#checkout_history'
   get    'users/checkout_history/:id'   => 'users#checkout_history'
   get    'users/view_profile'   => 'users#view_profile'
-  get    'users/edit'   => 'users#edit'
-  post   'users/edit'   => 'users#update'
+  get    'users/edit'   => 'users#edit'  
+  post   'users/edit'   => 'users#update'  
   get    'users/change_pass'   => 'users#change_pass'
   post   'users/change_pass'   => 'users#update_pass'
   get	 'users/checkout'   => 'users#checkout'
+  get    'users/suggest'   => 'users#suggest'
+  get    'users/return'   => 'users#return'
   resources :users
   resources :books
   get    'books/:id/checkout'   => 'books#checkout'
   get    'books/:id/return'   => 'books#return'
   get    'books/:id/setalert'   => 'books#set_alert'
 
+  resources :suggestions
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

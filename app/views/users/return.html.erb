@@ -20,6 +20,18 @@
         </ul>
         </li>
       </ul>
+	<h2>Books currently borrowed: </h2>
+	<p>
+	<% @books.each do |book| %>
+                      <tr>
+                              <td><%= book.book_name %></td>
+                              <td><%= book.isbn %></td>
+                              <td><%= book.description %></td>
+                              <td><%= book.authors %></td>
+                              <td><%= book.status %></td>
+                             <%= button_to "Return book", "/books/#{book.id}/return" , :method => "get" %>
+         <% end %>
+	</p>
     </nav>
   </div>
 </header>

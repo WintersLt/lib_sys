@@ -1,6 +1,6 @@
-<h1> Update Book Info </h1>
+<h1> Edit Book Suggestion </h1>
 
-<%= form_for (@book) do |f| %>
+<%= form_for (@suggestion) do |f| %>
   <%= f.label :book_name %>
   <%= f.text_field:book_name %></br>
   </br> <%= f.label :ISBN %>

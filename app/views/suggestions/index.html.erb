@@ -1,0 +1,35 @@
+<% provide(:title, @current_user.name) %>
+<table>
+  <tr>
+        <th>Book Name</th>
+        <th>ISBN</th>
+        <th>Description</th>
+        <th>Authors</th>
+        <th> status</th>
+              </tr>
+
+              <% @suggestions.each do |suggestion| %>
+                      <tr>
+                              <td><%= suggestion.book_name %></td>
+                              <td><%= suggestion.isbn %></td>
+                              <td><%= suggestion.description %></td>
+                              <td><%= suggestion.authors %></td>
+                             <td>
+                              <% if logged_in_as_admin? %>
+
+                         <%= link_to 'Approve Suggestion' , edit_suggestion_path(suggestion) %></td>
+                       <td> <%= link_to 'Delete' , suggestion_path(suggestion), method: :delete, data: {confirm: 'Are you sure?'} %></td>
+                     <% end %>
+</tr>
+                                          <% end %>
+                                          </table>
+
+
+<div>
+<%= link_to "My Home" , user_path(current_user) %>
+</div>
+
+
+
+
+
