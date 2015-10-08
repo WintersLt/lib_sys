@@ -30,6 +30,8 @@
     <%= button_to "Checkout", "/books/#{@book.id}/checkout" , :method => "get" %>
   <% else %>
     <br/>Book already checked out!!<br/>
+    <br/>We can send you a mail when the book is available, set alert below<br/>
+    <%= button_to "Set alert", "/books/#{@book.id}/setalert" , :method => "get" %>
   <% end %>
 <% end %>
 

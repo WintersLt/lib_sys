@@ -1,3 +1,5 @@
+require 'alert_mailer'
+require 'mail'
 class BooksController < ApplicationController
   include SessionsHelper
   def new
@@ -92,11 +94,13 @@ class BooksController < ApplicationController
 	  if(@book.status == "Available" || !@history)
 	    flash[:notice] = "Book is already with the library"
 		redirect_to current_user
+		return
 	  end
 	  # If user is not admin, also check if book is issued to him
 	  if logged_in_as_member? && @history.user_id != current_user.id 
 		flash[:notice] = "Book is not issued to you, can't return"
 		redirect_to current_user
+		return
 	  end
 	  
 	  @history.date_of_return = Time.now
@@ -104,13 +108,44 @@ class BooksController < ApplicationController
 	  @history.save
 	  @book.save
 
-	  flash[:danger] = "You have successfully returned #{@book.book_name}!!"
+	  #set email alert here and delete everything from email_alert table for this book
+	  emails = EmailAlert.where("book_id = ?", params[:id]) 
+	  #TODO:This can take time, can be done after redirecting
+	  emails.each do |email|
+	    AlertMailer.alert_email(email).deliver_now
+	  end
+	  EmailAlert.where(book_id: params[:id]).destroy_all
+
+	  #flash[:notice] = "You have successfully returned #{@book.book_name}!!"
+	  flash[:notice] = "You have successfully returned #{@book.book_name}!!"
 	  redirect_to current_user
     else
       redirect_to_home
     end
   end
 
+  def set_alert 
+    if logged_in_as_member?
+	  book = Book.find_by(id: params[:id])
+
+	  if book.user_id == current_user.id
+	    flash[:notice] = "You already have the book checked out, alert not set!!"
+	  	redirect_to current_user
+		return
+	  end
+
+	  email_alert = EmailAlert.new(book_id: params[:id], email: current_user.email)
+	  if email_alert.save
+	    flash[:notice] = "You have successfully set alert!!"
+	  else
+	    flash[:danger] = "Alert could not be set, something went wrong!!"
+	  end
+	  redirect_to current_user
+	  return
+	else
+	  redirect_to_home
+	end
+  end
 
   private
 

@@ -29,6 +29,7 @@ get 'sessions/new'
   resources :books
   get    'books/:id/checkout'   => 'books#checkout'
   get    'books/:id/return'   => 'books#return'
+  get    'books/:id/setalert'   => 'books#set_alert'
 
 
   # Example of regular route:
